@@ -1,59 +1,180 @@
-# TodoApp
+# 📝 Application To-Do List - Angular + NgRx
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.1.
+Une application de gestion de tâches moderne construite avec Angular 18+ et NgRx pour la gestion d'état.
 
-## Development server
+## ✨ Fonctionnalités
 
-To start a local development server, run:
+- ✅ **Authentification simple** : Connexion par email (mock)
+- ✅ **Gestion complète des tâches** :
+  - Créer, modifier et supprimer des tâches
+  - Marquer les tâches comme terminées
+  - Système de priorités (1 à 5)
+  - Dates d'échéance
+- ✅ **Gestion d'état avec NgRx** : Gestion d'état prévisible
+- ✅ **Interface utilisateur intuitive** : Design moderne et responsive
+- ✅ **Multi-utilisateurs** : Chaque utilisateur a ses propres tâches
 
+
+## 🎯 Captures d'écran
+
+### Écran de connexion
+Page d'authentification simple permettant de se connecter avec un email.
+
+### Liste des tâches
+- Séparation claire entre tâches en cours et terminées
+- Code couleur par priorité
+- Actions rapides (modifier, supprimer, marquer comme terminée)
+
+## 🚀 Installation
+
+### Prérequis
+
+- Node.js (v18 ou supérieur)
+- npm ou yarn
+- Angular CLI (`npm install -g @angular/cli`)
+
+### Étapes d'installation
+
+1. **Créer le projet**
+```bash
+ng new todo-app --routing --style=scss
+cd todo-app
+```
+
+2. **Installer les dépendances NgRx**
+```bash
+ng add @ngrx/store@latest
+ng add @ngrx/store-devtools@latest
+```
+
+3. **Installer les dépendances supplémentaires**
+```bash
+npm install uuid
+npm install --save-dev @types/uuid
+```
+
+4. **Copier les fichiers du projet**
+   - Suivez la structure de fichiers décrite ci-dessous
+   - Copiez tous les composants, modèles et store
+
+5. **Lancer l'application**
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+6. **Ouvrir dans le navigateur**
+```
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📁 Structure du projet
 
-```bash
-ng generate --help
+```
+src/app/
+├── models/
+│   ├── task.model.ts          # Interface Task
+│   └── user.model.ts          # Interface User
+├── store/
+│   ├── auth/
+│   │   ├── auth.actions.ts    # Actions d'authentification
+│   │   ├── auth.reducer.ts    # Reducer d'authentification
+│   │   └── auth.selectors.ts  # Sélecteurs d'authentification
+│   └── tasks/
+│       ├── tasks.actions.ts   # Actions des tâches
+│       ├── tasks.reducer.ts   # Reducer des tâches
+│       └── tasks.selectors.ts # Sélecteurs des tâches
+├── components/
+│   ├── login/                 # Composant de connexion
+│   │   
+│   ├── task-list/             # Composant liste des tâches
+│   │   
+│   └── task-form/             # Composant formulaire de tâche
+│       
+├── app.component.ts           # Composant principal
+└── app.config.ts              # Configuration NgRx
 ```
 
-## Building
+## 🔧 Technologies utilisées
 
-To build the project run:
+- **Angular 18+** : Framework frontend
+- **NgRx** : Gestion d'état Redux pour Angular
+- **TypeScript** : Langage de programmation
+- **SCSS** : Préprocesseur CSS
+- **UUID** : Génération d'identifiants uniques
+- **Standalone Components** : Architecture moderne Angular
 
-```bash
-ng build
+## 📚 Concepts NgRx implémentés
+
+### Store Structure
+
+```typescript
+{
+  auth: {
+    user: User | null
+  },
+  tasks: {
+    tasks: Task[]
+  }
+}
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+### Actions principales
 
-## Running unit tests
+**Authentification** :
+- `login` : Connexion utilisateur
+- `logout` : Déconnexion utilisateur
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+**Tâches** :
+- `addTask` : Ajouter une tâche
+- `updateTask` : Modifier une tâche
+- `deleteTask` : Supprimer une tâche
+- `toggleTask` : Basculer l'état de complétion
+- `clearTasks` : Effacer toutes les tâches
 
-```bash
-ng test
-```
+### Selectors
 
-## Running end-to-end tests
+- `selectUser` : Récupère l'utilisateur connecté
+- `selectAllTasks` : Récupère toutes les tâches
+- `selectUserTasks` : Filtre les tâches par utilisateur
+- `selectPendingTasks` : Tâches en cours d'un utilisateur
+- `selectCompletedTasks` : Tâches terminées d'un utilisateur
 
-For end-to-end (e2e) testing, run:
+## 🎨 Système de priorités
 
-```bash
-ng e2e
-```
+| Priorité | Couleur | Description |
+|----------|---------|-------------|
+| 1 | 🔵 Bleu | Très basse |
+| 2 | 🟣 Violet | Basse |
+| 3 | 🟠 Orange | Moyenne |
+| 4 | 🟠 Orange foncé | Haute |
+| 5 | 🔴 Rouge | Très haute |
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 💡 Utilisation
 
-## Additional Resources
+### Connexion
+1. Entrez votre email sur la page de connexion
+2. Cliquez sur "Se connecter"
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Créer une tâche
+1. Remplissez le formulaire :
+   - Titre (obligatoire)
+   - Description
+   - Priorité (1-5)
+   - Date d'échéance
+2. Cliquez sur "Ajouter"
+
+### Modifier une tâche
+1. Cliquez sur l'icône ✏️ sur la tâche
+2. Modifiez les informations
+3. Cliquez sur "Modifier"
+
+### Marquer comme terminée
+- Cochez la case à côté de la tâche
+
+### Supprimer une tâche
+- Cliquez sur l'icône 🗑️ (confirmation demandée)
+
+### Déconnexion
+- Cliquez sur "Déconnexion" (efface toutes les tâches de la session)
+
+
