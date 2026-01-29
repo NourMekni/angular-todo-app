@@ -1,0 +1,42 @@
+.task-form {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save {
+  background: #28a745;
+  color: white;
+  flex: 1;
+}
+
+.cancel {
+  background: #6c757d;
+  color: white;
+}

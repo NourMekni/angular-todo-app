@@ -1,0 +1,73 @@
+ <div class="container" *ngIf="user$ | async as user">
+      <header>
+        <h1>Mes Tâches</h1>
+        <div class="user-info">
+          <span>{{ user.email }}</span>
+          <button (click)="logout()">Déconnexion</button>
+        </div>
+      </header>
+
+      <app-task-form 
+        [userId]="user.email"
+        [taskToEdit]="editingTask"
+      ></app-task-form>
+
+      <div class="tasks-section">
+        <h2>À faire ({{ (pendingTasks$ | async)?.length || 0 }})</h2>
+        <div class="task-list">
+          <div 
+            *ngFor="let task of pendingTasks$ | async" 
+            class="task-item pending"
+          >
+            <div class="task-header">
+              <input 
+                type="checkbox" 
+                [checked]="task.completed"
+                (change)="toggleTask(task.id)"
+              />
+              <span class="priority priority-{{task.priority}}">
+                P{{task.priority}}
+              </span>
+              <h3>{{ task.title }}</h3>
+            </div>
+            <p>{{ task.description }}</p>
+            <div class="task-footer">
+              <span class="due-date">📅 {{ task.dueDate }}</span>
+              <div class="actions">
+                <button (click)="editTask(task)" class="edit">✏️</button>
+                <button (click)="deleteTask(task.id)" class="delete">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tasks-section">
+        <h2>Terminées ({{ (completedTasks$ | async)?.length || 0 }})</h2>
+        <div class="task-list">
+          <div 
+            *ngFor="let task of completedTasks$ | async" 
+            class="task-item completed"
+          >
+            <div class="task-header">
+              <input 
+                type="checkbox" 
+                [checked]="task.completed"
+                (change)="toggleTask(task.id)"
+              />
+              <span class="priority priority-{{task.priority}}">
+                P{{task.priority}}
+              </span>
+              <h3>{{ task.title }}</h3>
+            </div>
+            <p>{{ task.description }}</p>
+            <div class="task-footer">
+              <span class="due-date">📅 {{ task.dueDate }}</span>
+              <div class="actions">
+                <button (click)="deleteTask(task.id)" class="delete">🗑️</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
